@@ -1,0 +1,6 @@
+- src: buluma.hostname
+  version: 0.1.2
+- src: vcc_caeit.squid
+  version: 1.3.0
+- src: andrewrothstein.kubectl
+  version: v1.2.5

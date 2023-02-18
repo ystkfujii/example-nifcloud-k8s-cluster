@@ -1,0 +1,63 @@
+---
+- name: Fetch from controle plane
+  hosts: kube_control_plane[0]
+  tasks:
+  - name: Fetch kube.config
+    fetch:
+      src: /etc/kubernetes/admin.conf
+      dest: ./
+      flat: yes
+      owner: root
+      group: root
+      mode: 400
+    tags: "kubeconfig"
+
+- name: Copy to bastion
+  hosts: bastion[0]
+  tasks:
+  - name: Copy ssh-key from local to bastion
+    copy:
+      src: "{{ item }}"
+      dest: ~/.ssh/
+      owner: root
+      group: root
+      mode: 400
+    with_fileglob:
+    - /wd/out/key
+  - name: Ensures ~/.kube dir exists
+    file: 
+      path: "~/.kube"
+      state: directory
+  - name: Copy kubeconfig from local to bastion
+    copy:
+      src: "{{ item }}"
+      dest: ~/.kube/config
+      owner: root
+      group: root
+      mode: 400
+    with_fileglob:
+    - ./admin.conf
+
+- name: Set hostname
+  hosts: bastion[0]
+  roles:
+    - role: buluma.hostname
+      tags: ["hostname"]
+
+- name: Install kubeconfig
+  hosts: bastion[0]
+  roles:
+    - role: andrewrothstein.kubectl
+      tags: ["kubeconfig"]
+
+- name: Play kubernetes/preinstall
+  hosts: bastion[0]
+  gather_facts: False
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  environment: "{{ proxy_disable_env }}"
+  roles:
+    - { role: kubespray-defaults }
+    - { role: kubernetes/preinstall, tags: preinstall }
+
+
+

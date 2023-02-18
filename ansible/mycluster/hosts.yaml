@@ -1,0 +1,61 @@
+all:
+  vars:
+    ansible_user: root
+    control_plane_lb_ip: "{{ cp_lb_ip }}"
+  hosts:
+    w11001egress:
+      ansible_host: "{{ w11001egress }}"
+      ip: "{{ w11001egress }}"
+    w11001bastion:
+      ansible_host: "{{ w11001bastion }}"
+      ip: "{{ w11001bastion }}"
+      access_ip: "{{ w11001bastion }}"
+    # control plane
+    w11001cp1:
+      ansible_host: "{{ w11001cp01 }}"
+      ip: "{{ w11001cp01 }}"
+      access_ip: "{{ w11001cp01 }}"
+    w11001cp2:
+      ansible_host: "{{ w11001cp02 }}"
+      ip: "{{ w11001cp02 }}"
+      access_ip: "{{ w11001cp02 }}"
+    w11001cp3:
+      ansible_host: "{{ w11001cp03 }}"
+      ip: "{{ w11001cp03 }}"
+      access_ip: "{{ w11001cp03 }}"
+    # worker
+    w11001wk1:
+      ansible_host: "{{ w11001wk01 }}"
+      ip: "{{ w11001wk01 }}"
+      access_ip: "{{ w11001wk01 }}"
+    w11001wk2:
+      ansible_host: "{{ w11001wk02 }}"
+      ip: "{{ w11001wk02 }}"
+      access_ip: "{{ w11001wk02 }}"
+  children:
+    egress:
+      hosts:
+        w11001egress:
+    bastion:
+      hosts:
+        w11001bastion:
+    kube_control_plane:
+      hosts:
+        w11001cp1:
+        w11001cp2:
+        w11001cp3:
+    kube_node:
+      hosts:
+        w11001wk1:
+        w11001wk2:
+    etcd:
+      hosts:
+        w11001cp1:
+        w11001cp2:
+        w11001cp3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}

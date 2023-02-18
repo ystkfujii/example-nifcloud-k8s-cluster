@@ -1,0 +1,12 @@
+---
+
+- name: egress
+  hosts: egress
+  become: yes
+  vars:
+    squid_http_port: 3128
+  roles:
+    - role: buluma.hostname
+      tags: ["hostname"]
+    - role: vcc_caeit.squid
+      tags: ["squid"]
