@@ -6,11 +6,15 @@
 
 ![overview.png](./images/overview.png)
 
+### Requirements
+
+- [Docker](https://docs.docker.com/engine/install/)
+- [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+
 ### 準備
 
 - NIFCLOUDのアカウントを用意する
-  - ちなみに、無料トライアルがある[FJcloud-V（ニフクラOEM）](https://personal.clouddirect.jp.fujitsu.com/)でも同じことができるはず
-  - ~~やったことないので出来ないかも~~
+  - ちなみに、無料トライアルがある[FJcloud-V（ニフクラOEM）](https://personal.clouddirect.jp.fujitsu.com/)でも同じことができる（はず...）
 - `ACCESS_KEY_ID`/`SECRET_ACCESS_KEY`を設定
   ```bash
   export NIFCLOUD_ACCESS_KEY_ID=<YOUR ACCESS KEY>
@@ -66,7 +70,7 @@
   ```bash
   docker run --rm -it -e CP_LB_IP -e ANSIBLE_SSH_ARGS -e BASTION_IP --mount type=bind,source="$(pwd)",dst=/wd  quay.io/kubespray/kubespray:${KUBESPRAY_VERSION} bash
   ```
-- 必要なパッケージの取得
+- 必要なパッケージ/Roleの取得
   ```bash
   # https://github.com/kubernetes-sigs/kubespray/issues/9695
   pip install jmespath==0.9.5
@@ -91,7 +95,7 @@
   ```bash
   ansible-playbook -i /wd/ansible/mycluster/hosts.yaml -e cp_lb_ip=${CP_LB_IP} -e @/wd/ansible/extra-vars_cluster_info.yml  cluster.yml
   ```
-  - だいたい１時間くらいかかる...
+  - だいたい１時間ちょっとかかる...😇
 
 #### Bastionの構築
 
