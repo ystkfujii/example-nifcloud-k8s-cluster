@@ -11,7 +11,9 @@
 - [Docker](https://docs.docker.com/engine/install/)
 - [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
-### 準備
+### Kubernetesのインフラ作成
+
+#### 準備
 
 - NIFCLOUDのアカウントを用意する
   - ちなみに、無料トライアルがある[FJcloud-V（ニフクラOEM）](https://personal.clouddirect.jp.fujitsu.com/)でも同じことができる（はず...）
@@ -26,7 +28,7 @@
   export TF_VAR_availability_zone=west-11 
   ```
 
-### Create k8s infrastructure
+#### インフラの作成
 
 - SSH Keyの生成とアップロード
   ```bash
@@ -45,7 +47,7 @@
   terraform -chdir=terraform/live/cluster/ apply
   ```
 
-### Build k8s Cluster
+### Kubernetesクラスターの構築
 
 #### 準備
 
@@ -116,7 +118,7 @@
   kubectl get pod -A
   ```
 
-## さいごに
+### さいごに
 
 - out/keyを誰にも内緒の秘密の場所に保存する🤫
 
