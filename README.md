@@ -21,9 +21,6 @@
   export TF_VAR_region=jp-west-1
   export TF_VAR_availability_zone=west-11 
   ```
-- 下記ファイルの`cloud`の部分をよしなに書き換える（削除でもよい）
-  - terraform/cluster/teraform.tf
-  - terraform/elasticip/teraform.tf
 
 ### Create k8s infrastructure
 

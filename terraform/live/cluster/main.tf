@@ -21,13 +21,10 @@ provider "nifcloud" {
 # Data
 #
 data "terraform_remote_state" "elasticip" {
-  backend = "remote" 
+  backend = "local"
   
   config = {
-    organization = "ystkfujii"
-    workspaces = {
-      name = "elasticip"
-    }
+    path = "${path.root}/../elasticip/terraform.tfstate"
   }
 }
 
