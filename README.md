@@ -2,11 +2,15 @@
 
 [NIFCLOUD](https://pfs.nifcloud.com/)上に[Terraform](https://www.terraform.io/) + [kubespray](https://kubespray.io/#/)でKubernetes Clsuterを構築するやつ
 
+### 概要図
+
+![overview.png](./images/overview.png)
+
 ### 準備
 
 - NIFCLOUDのアカウントを用意する
   - ちなみに、無料トライアルがある[FJcloud-V（ニフクラOEM）](https://personal.clouddirect.jp.fujitsu.com/)でも同じことができるはず
-  - ~~やったことないのでよく分からん~~
+  - ~~やったことないので出来ないかも~~
 - `ACCESS_KEY_ID`/`SECRET_ACCESS_KEY`を設定
   ```bash
   export NIFCLOUD_ACCESS_KEY_ID=<YOUR ACCESS KEY>
